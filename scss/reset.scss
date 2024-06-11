@@ -1,0 +1,75 @@
+:root {
+  font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕', 'Malgun Gothic', Sans-serif;
+  letter-spacing: -0.02em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  // size
+  --content-width: 600px;
+  --module-margin: 200px;
+
+  // z-index
+  --z-gnb: 100;
+  --z-main: 10;
+  --z-layer: 200;
+  --z-modal: 210;
+  --z-loading: 999;
+
+  // colors
+  --c-accent1: #ff4935;
+  --c-accent2: #c4ff10;
+
+  // utils
+  --easing: cubic-bezier(0.17, 0.67, 0.21, 1);
+
+  @include laptop {
+    --module-margin: 130px;
+  }
+
+  @include mobile {
+    --module-margin: 80px;
+  }
+}
+
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  outline: 0;
+  text-decoration: none;
+  color: #555;
+}
+
+img {
+  border: 0;
+  vertical-align: bottom;
+}
+
+input,
+button,
+textarea {
+  font: inherit;
+}

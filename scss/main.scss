@@ -234,7 +234,12 @@ html, body { width:100%; overflow-x: hidden;}
       opacity: 0.7;
       font-family: "Noto Sans KR";
       box-sizing: border-box;
-    
+      padding: 0px 4px;
+      margin: 0px 2px;
+      background-color: #dccfda;
+      color: #180012;
+      //font-weight: bold;
+      border-radius: 2px;
     }
     span.check {
       text-decoration: underline;

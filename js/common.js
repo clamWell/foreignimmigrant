@@ -965,7 +965,7 @@ function makeDumbelChart(data){
         }else if(Number(d["value2024"])-Number(d["value2012"])<0){
           posX = -6;
         }else{
-          posX = 6;
+          posX = -6;
         }
 
       }else {

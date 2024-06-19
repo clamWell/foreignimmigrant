@@ -1355,31 +1355,98 @@ function makePlotChart(){
 
   var $tooltip = $(".tooltip");
   each_plot_g.on("mouseenter", function(d) {
-    d3.selectAll(".plot-g").style("opacity", 0.1);
-    d3.select(this)
-      .style("opacity", "1");
-    d3.select(this).selectAll(".label-name")
-      .style("opacity", "1");
-    d3.select(this).selectAll(".plot-now")
-      .style("stroke", "#111");
-    //console.log(d3.select(this));
-    $tooltip.css({"display":"block","opacity":"1"})
-    $tooltip.find(".name").html(d["geo1"]+" "+ d["geo2"]);
-    $tooltip.find(".popPast").html(d["total10"].toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") +"명");
-    $tooltip.find(".popNow").html(d["total22"].toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") +"명");
-    $tooltip.find(".popRatioPast").html(d["ratio10"]+"%" );
-    $tooltip.find(".popRatioNow").html(d["ratio22"]+"%" );
+    if(nowGeoFilterOn == true){
+      var geoIdx = d3.select(this).attr("class").split(" ");
+      geoIdx = geoIdx[3].replace("plot-geo","");
+      console.log(geoIdx, nowGeoFilterIndex);
+      if(nowGeoFilterIndex==geoIdx){
+        d3.selectAll(".plot-g").style("opacity", 0.02);
+        d3.select(this)
+          .style("opacity", "1");
+        d3.select(this).selectAll(".label-name")
+          .style("opacity", "1");
+        d3.select(this).selectAll(".plot-now")
+          .style("stroke", "#111");
+        $tooltip.css({"display":"block","opacity":"1"})
+        $tooltip.find(".name").html(d["geo1"]+" "+ d["geo2"]);
+        $tooltip.find(".popPast").html(d["total10"].toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") +"명");
+        $tooltip.find(".popNow").html(d["total22"].toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") +"명");
+        $tooltip.find(".popRatioPast").html(d["ratio10"]+"%" );
+        $tooltip.find(".popRatioNow").html(d["ratio22"]+"%" );
+
+        if(d["total10"]>d["total22"]){
+          $tooltip.find(".popUpDown").html("감소"); 
+        }else if(d["total10"]==d["total22"]){
+          $tooltip.find(".popUpDown").html("변화하지 않음"); 
+        }else if(d["total10"]<d["total22"]){
+          $tooltip.find(".popUpDown").html("증가"); 
+        }
+        
+        if(d["ratio10"]>d["ratio22"]){
+          $tooltip.find(".popRatioUpDown").html("감소"); 
+        }else if(d["ratio10"]==d["ratio22"]){
+          $tooltip.find(".popRatioUpDown").html("변화하지 않음"); 
+        }else if(d["ratio10"]<d["ratio22"]){
+          $tooltip.find(".popRatioUpDown").html("증가"); 
+        }
+
+      }
+    }else{
+      d3.selectAll(".plot-g").style("opacity", 0.05);
+      d3.select(this)
+        .style("opacity", "1");
+      d3.select(this).selectAll(".label-name")
+        .style("opacity", "1");
+      d3.select(this).selectAll(".plot-now")
+        .style("stroke", "#111");
+      //console.log(d3.select(this));
+      $tooltip.css({"display":"block","opacity":"1"})
+      $tooltip.find(".name").html(d["geo1"]+" "+ d["geo2"]);
+      $tooltip.find(".popPast").html(d["total10"].toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") +"명");
+      $tooltip.find(".popNow").html(d["total22"].toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") +"명");
+      $tooltip.find(".popRatioPast").html(d["ratio10"]+"%" );
+      $tooltip.find(".popRatioNow").html(d["ratio22"]+"%" );
+
+      if(d["total10"]>d["total22"]){
+        $tooltip.find(".popUpDown").html("감소"); 
+      }else if(d["total10"]==d["total22"]){
+        $tooltip.find(".popUpDown").html("변화하지 않음"); 
+      }else if(d["total10"]<d["total22"]){
+        $tooltip.find(".popUpDown").html("증가"); 
+      }
+      
+      if(d["ratio10"]>d["ratio22"]){
+        $tooltip.find(".popRatioUpDown").html("감소"); 
+      }else if(d["ratio10"]==d["ratio22"]){
+        $tooltip.find(".popRatioUpDown").html("변화하지 않음"); 
+      }else if(d["ratio10"]<d["ratio22"]){
+        $tooltip.find(".popRatioUpDown").html("증가"); 
+      }
+
+    }
+   
   // $tooltip.css({"left": (Number(d3.select(this).attr("cx"))-5) + "px"});
   // $tooltip.css({"top": (Number(d3.select(this).attr("cy"))+15) +"px"});
 
   }).on("mouseleave", function(d){
-    d3.selectAll(".plot-g")
-              .style("opacity", null);
-    d3.selectAll(".plot-g").selectAll(".label-name")
+    if(nowGeoFilterOn == true){
+      $("#DUMBEL_CHART .plot-g").stop().animate({"opacity":"0.02"}, 100);
+      $("#DUMBEL_CHART .plot-geo"+nowGeoFilterIndex).stop().animate({"opacity":"1"},100);
+      d3.selectAll(".plot-g").selectAll(".label-name")
       .style("opacity", null);
-    d3.selectAll(".plot-g").selectAll(".plot-now")
+      d3.selectAll(".plot-g").selectAll(".plot-now")
       .style("stroke", null);
-    $tooltip.css({"display":"none","opacity":"0"});
+      $tooltip.css({"display":"none","opacity":"0"});
+
+    }else{
+      d3.selectAll(".plot-g")
+      .style("opacity", null);
+      d3.selectAll(".plot-g").selectAll(".label-name")
+      .style("opacity", null);
+      d3.selectAll(".plot-g").selectAll(".plot-now")
+      .style("stroke", null);
+      $tooltip.css({"display":"none","opacity":"0"});
+    }
 
   });
 
@@ -1389,7 +1456,78 @@ function makePlotChart(){
 
 makePlotChart();
 
+/*********도시 덤벨차트 지역별로 *********/
 
+
+/*********도시 랭킹 테이블 만들기********/
+var makeCityRanktable = function(type){
+  var type = type;
+  var data;
+  if(type=="amount"){
+    $(".full-ranking #listBody").html("");
+    data = geoPopData.sort((a,b) => (b.yoy - a.yoy));
+    data.forEach(function(v,i,a){
+      $(".full-ranking #listBody").append("<tr><td scope='col'>" + (i+1) + "</td><td scope='col'>" + v["geo_nameFull"]+"</td><td scope='col'>" + v.yoy.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") +"명" + "</td></tr>");
+    });
+  }else{
+    $(".full-ranking #listBody").html("");
+    data = geoPopData.sort((a,b) => (b.yoypercent - a.yoypercent));
+    data.forEach(function(v,i,a){
+      $(".full-ranking #listBody").append("<tr><td scope='col'>" + (i+1) + "</td><td scope='col'>" + v["geo_nameFull"]+"</td><td scope='col'>" + v.yoypercent.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") +"%" + "</td></tr>");
+    });
+  }
+};
+makeCityRanktable("amount");
+
+$(".chart-swift .btn-holder .btn").on("click", function(){
+  $(".chart-swift .btn-holder .btn").removeClass("on");
+  $(this).addClass("on");
+
+  if($(this).attr("id")=="SWIFT_TO_DUMBEL"){
+    $(".dumbel-chart-holder").show();
+    $(".table-chart-holder").hide();
+  }else{
+    $(".dumbel-chart-holder").hide();
+    $(".table-chart-holder").show();
+  }
+});
+
+
+var nowGeoFilterOn = false,
+nowGeoFilterIndex = null;
+
+$("#DUMBEL_GEO_BTN > div").on("click", function(){
+  nowGeoFilterOn = true;
+  $("#DUMBEL_GEO_BTN > div").removeClass("on");
+  $(this).addClass("on");
+
+  var idx = $(this).index();
+  console.log(idx);
+  nowGeoFilterIndex = idx;
+  $("#DUMBEL_CHART .plot-g").stop().animate({"opacity":"0.02"}, 100);
+  $("#DUMBEL_CHART .plot-g").css({ "user-select": "none", "pointer-events":"none"});
+  $("#DUMBEL_CHART .plot-geo"+idx).stop().animate({"opacity":"1"},100);
+  $("#DUMBEL_CHART .plot-geo"+idx).css({ "user-select": "inherit", "pointer-events":"inherit"});
+});
+$("#GEO_DEFAULT").on("click", function(){
+  nowGeoFilterOn = false;
+  nowGeoFilterIndex = null;
+  $("#DUMBEL_GEO_BTN > div").removeClass("on");
+  $(this).addClass("on");
+  $("#DUMBEL_CHART .plot-g").css({ "user-select": "inherit", "pointer-events":"inherit"});
+  $("#DUMBEL_CHART .plot-g").stop().animate({"opacity": "1"},100);
+});
+
+$("#CHART_AMOUNT_OR_PER > li").on("click", function(){
+  $("#CHART_AMOUNT_OR_PER > li").removeClass("on");
+  $(this).addClass("on");
+  console.log($(this).index());
+  if($(this).index() == 0){
+    makeCityRanktable("amount");
+  }else{
+    makeCityRanktable("per");
+  }
+});
 
 
 

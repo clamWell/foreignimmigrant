@@ -20,9 +20,89 @@
       bottom:0;
       width: 100%;
       height: 100%;
-      background: url("../img/top-cover-2.jpg") no-repeat;
+      background: url("../img/top-cover-3.jpg") no-repeat;
       background-size: cover;
     }
+    .deco-img{
+      position: absolute;
+      img{  
+        width: 100%;
+        position: relative;
+      }
+      &.deco-01 {
+        width: 800px;
+        bottom:300px;
+        right:0;
+        opacity: 0;
+        img {
+          animation: shakeRight 4s infinite cubic-bezier(.37,.01,.55,.99) both;
+          animation-delay: 1s;
+        }
+        
+      }
+      &.deco-02 {
+        width: 800px;
+        bottom:-50px;
+        left:-100px;
+        opacity: 0;
+        transform: scale(1.5);
+        //filter: blur(3px);
+        img {
+          animation: float 4s ease infinite;
+        }
+      }
+      &.deco-03 {
+        width: 1000px;
+        top:-200px;
+        right:-100px;
+        opacity: 0;
+      }
+      &.deco-04 {
+        width: 1000px;
+        top:50px;
+        left:-200px;
+        opacity: 0;
+        img {
+          animation: shakeRight 4s infinite cubic-bezier(.37,.01,.55,.99) both;
+        }
+      }
+    }
+    @keyframes shakeRight {
+      0% {
+          right: 0
+      }
+  
+      40% {
+          right: 0
+      }
+  
+      50% {
+          right: -15px
+      }
+  
+      70% {
+          right: 0
+      }
+  
+      100% {
+          right: 0
+      }
+    }
+    @keyframes float {
+      0% {
+          transform: none
+      }
+  
+      50% {
+          transform: translate(0,-10px)
+      }
+  
+      100% {
+          transform: none
+      }
+  }
+  
+  
     .deem {
       position: absolute;
       left:0;
@@ -31,8 +111,9 @@
       bottom:0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.3);
       opacity: 0;
+      transition: all 0.3s ease-in-out;
     }
     .header-background-deem {
       position: absolute;
@@ -59,7 +140,7 @@
     //z-index: 222;
     .title-holder {
       width: 100%;
-      margin: 100px auto;
+      margin: 50px auto;
       @include laptop {
         //margin: 50px auto;
       }
@@ -122,7 +203,7 @@
       }
       .deco {
         margin: 50px auto;
-        height: 300px;
+        height: 200px;
         @include laptop{
           margin: 0px auto;
         }
@@ -160,6 +241,15 @@
       position: relative;
       opacity: 0;
       margin-bottom:5px;
+    }
+    .collabo-logo{
+      display: block;
+      margin: 30px auto;
+      opacity: 0;
+      img{
+        width: 150px;
+        margin: 0 auto;
+      }
     }
     .byline {
       width: 100%;

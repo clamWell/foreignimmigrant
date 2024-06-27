@@ -8,15 +8,19 @@ let geoData = initGeoData;
 
 /**인트로 애니메이션**/
 function animateStoryHeader(){
-  $(".title-animate .border").animate({"width":"100%"}, 1500, "easeInOutCubic", function(){
-    $(".title-animate .top img").animate({"top":"10px", "opacity":"1"}, 1500, "easeInOutCubic");
-    $(".title-animate .bottom img").delay(800).animate({"top":"0px", "opacity":"1"}, 1500, "easeInOutCubic", function(){
-      $(".deco .line").animate({"height":"300px"}, 1500, "easeInOutCubic", function(){
-        subtitleAnimate();
+  $(".story-header .deem").animate({"opacity":"1"}, 1000, function(){
+    $(".title-animate .border").animate({"width":"100%"}, 1500, "easeInOutCubic", function(){
+      $(".title-animate .top img").animate({"top":"10px", "opacity":"1"}, 1500, "easeInOutCubic");
+      decoImageAnimate();
+      $(".title-animate .bottom img").delay(800).animate({"top":"0px", "opacity":"1"}, 1500, "easeInOutCubic", function(){
+        $(".deco .line").animate({"height":"100%"}, 1500, "easeInOutCubic", function(){
+          subtitleAnimate();
+        });
       });
-    });
+  
+    })
+  });
 
-  })
 
 }
   function subtitleAnimate() {
@@ -30,9 +34,15 @@ function animateStoryHeader(){
         }
     };
   }
+  function decoImageAnimate() {
+    var $deco = $(".deco-img")
+    for(var o=0; o<$deco.length;o++){
+        $deco.eq(o).delay(o*1500).animate({"opacity":"1"}, 2000, "easeOutSine");
+    };
+  }
 
   function animateIntroEl(){
-    $(".story-header .art-date, .story-header .byline, .story-header .button").animate({"opacity":"0.8"}, 1000, "swing", function(){
+    $(".story-header .art-date, .story-header .collabo-logo, .story-header .byline, .story-header .button").animate({"opacity":"0.8"}, 1000, "swing", function(){
       $("body").removeClass("fixed");
       $(".mouse").fadeIn();
     });
@@ -1273,8 +1283,8 @@ function makePlotChart(){
       r = d["total22"]/1500;
       if(r<4){
          r = 4;
-      }else if(r>50){
-        r=50;
+      }else if(r>60){
+        r=60;
       }
       return r;
     })
@@ -1538,7 +1548,6 @@ export default function () {
     window.scrollTo(0, 0);
   };
 
-  $(".story-header .deem").animate({"opacity":"1"}, 1000);
   animateStoryHeader();
 
 }

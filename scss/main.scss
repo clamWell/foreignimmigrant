@@ -1629,6 +1629,14 @@ span.highlight{
         font-weight: bold;
         padding:0px 2px;
       }
+      .popUpDown{
+        font-weight: bold;
+        padding:0px;
+      }
+      .popRatioUpDown{
+        font-weight: bold;
+        padding:0px;
+      }
       p {
         font-size:14px; 
         line-height:1.3; 
@@ -1779,4 +1787,22 @@ span.highlight{
 
   }
 }
-
+#intro-image01{
+  max-width: 500px;
+  .title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  figcaption {
+    p {
+      margin: 5px auto;
+    }
+  }
+}
+#chapter1-image02{
+  max-width: 600px;
+  .title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+}

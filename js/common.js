@@ -49,6 +49,10 @@ function animateStoryHeader(){
   }
 /**인트로 애니메이션**/
 
+$(".question").on("click", function(){
+  $(this).toggleClass("active");
+  $(this).siblings(".answer").toggleClass("show");
+})
 
 /**검색기**/
 var geoSearcher = {};
